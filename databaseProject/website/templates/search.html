@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Search{% endblock %}
+
+{% block content %}
+    <h1>Search for miracle narratives</h1>
+
+<form action = {{ url_for('views.index') }} method='GET'>
+    <div class="form-group">
+        <input type="text" name="saint_name" placeholder="Name of the saint"> 
+    </div>
+    <div class="form-group">
+        <input type="text" name="type_miracle" placeholder="Type of miracle">
+    </div>
+    <div class="form-group">
+        <input type="text" name="hierarchy" placeholder="Hierarchy">
+    </div>
+    <div>
+        <input type="submit" value="submit">
+    </div>
+    <br />
+</form>
+
+{% endblock %}

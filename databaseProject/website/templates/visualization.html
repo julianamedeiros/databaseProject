@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Visualization{% endblock %}
+
+{% block content %}
+  <h1>Miracle Visualization</h1>
+  <canvas id="miracle-chart"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+    var totalMiracles = {{ total_miracles }};
+    var saintsData = {{ saints_data|tojson }};
+    
+    var saintNames = saintsData.map(function(item) {
+      return item[0];
+    });
+    
+    var miracleCounts = saintsData.map(function(item) {
+      return item[1];
+    });
+    
+    var ctx = document.getElementById('miracle-chart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: saintNames,
+        datasets: [{
+          label: 'Miracle Counts',
+          data: miracleCounts,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            precision: 0
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Miracle Visualization'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return 'Miracles: ' + context.raw;
+              },
+              afterLabel: function(context) {
+                var percentage = ((context.raw / totalMiracles) * 100).toFixed(2);
+                return 'Percentage: ' + percentage + '%';
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+{% endblock %}

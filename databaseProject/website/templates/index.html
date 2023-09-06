@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}Index{% endblock %}
+
+{% block content %}
+<html>
+<head>
+    <title>My Miracles</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Saint Name</th>
+                <th>Gender</th>
+                <th>Hierarchy</th>
+                <th>Type of Miracle</th>
+                <th>Agent of Miracle</th>
+                <th>Method</th>
+                <th>Beneficiary</th>
+                <th>Resume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for miracle in miracles %}
+            <tr>
+                <td>{{ miracle.id }}</td>
+                <td>{{ miracle.saint_name }}</td>
+                <td>{{ miracle.gender }}</td>
+                <td>{{ miracle.hierarchy }}</td>
+                <td>{{ miracle.type_miracle }}</td>
+                <td>{{ miracle.agent_of_miracle }}</td>
+                <td>{{ miracle.method }}</td>
+                <td>{{ miracle.beneficiary }}</td>
+                <td>{{ miracle.resume }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+{% endblock %}
